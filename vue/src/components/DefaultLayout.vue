@@ -36,10 +36,7 @@
           </div>
           <div class="hidden md:block">
             <div class="ml-4 flex items-center md:ml-6">
-              <button type="button" class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                <span class="sr-only">View notifications</span>
-                <BellIcon class="h-6 w-6" aria-hidden="true" />
-              </button>
+
 
               <!-- Profile dropdown -->
               <Menu as="div" class="ml-3 relative">
@@ -51,11 +48,14 @@
                 </div>
                 <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
                   <MenuItems class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <MenuItem v-slot="{ active }">
-                      <a 
-                      @click="logout"
-                      :href="item.href" 
-                      :class="[ 'block px-4 py-2 text-sm text-gray-700']">Sign out</a>
+                      <MenuItem v-slot="{}">
+                      <a
+                        @click="logout"
+                        :class="[
+                          'block px-4 py-2 text-sm text-gray-700 cursor-pointer',
+                        ]"
+                        >Sign out</a
+                      >
                     </MenuItem>
                   </MenuItems>
                 </transition>
@@ -98,14 +98,15 @@
               <div class="text-base font-medium leading-none text-white">{{ user.name }}</div>
               <div class="text-sm font-medium leading-none text-gray-400">{{ user.email }}</div>
             </div>
-            <button type="button" class="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-              <span class="sr-only">View notifications</span>
-              <BellIcon class="h-6 w-6" aria-hidden="true" />
-            </button>
           </div>
           <div class="mt-3 px-2 space-y-1">
-            <DisclosureButton @click="logout" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Sign out</DisclosureButton>
-          </div>
+            <DisclosureButton
+              as="a"
+              @click="logout"
+              class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 cursor-pointer"
+              >Sign out
+            </DisclosureButton>
+              </div>
         </div>
       </DisclosurePanel>
     </Disclosure>
@@ -117,15 +118,10 @@
 <script>
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/vue/outline'
-import {useStore} from 'vuex'
 import { computed } from "vue";
+import {useStore} from 'vuex'
+import {useRouter} from 'vue-router'
 
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
 const navigation = [
   { name: 'Dashboard', to:{name: 'Dashboard'}},
   { name: 'Surveys', to:{name: 'Surveys'}},
@@ -149,9 +145,20 @@ export default{
   },
     setup(){
         const store = useStore()
+        const router = useRouter()
+
+        function logout(){
+
+          store.commit('logout')
+          router.push({
+            name: 'Login'
+          })
+        }
+
         return{
             user: computed(()=>store.state.user.data),
             navigation,
+            logout,
         }
 
     }
