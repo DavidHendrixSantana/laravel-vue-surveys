@@ -110,6 +110,7 @@
         </div>
       </DisclosurePanel>
     </Disclosure>
+    <router-view :key="$route.path"></router-view>
     
 
   </div>
