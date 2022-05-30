@@ -70,8 +70,20 @@ const tmpSurveys = [
                 question:'What do you think about the web ?',
                 description:'Lorem ipsim',
                 data:{ },
-            },
+            }
         ],
+    },
+    {
+            id: 200,
+            title: 'Laravel 8',
+            slug: 'laravel-8',
+            status: 'active',
+            image: null,
+            description: 'examle description <br> lorem',
+            created_at: '2021-12-20 18:00:00',
+            updated_at: '2021-12-20 18:00:00',
+            expire_date: '2021-12-32 18:00:00',
+            questions: [],
     },
 ];
 
@@ -80,7 +92,8 @@ const store = createStore({
         user:{
             data:{},
             token:sessionStorage.getItem('TOKEN')
-        }
+        },
+        surveys: [...tmpSurveys],
     },
     getters: {},
     actions: {
