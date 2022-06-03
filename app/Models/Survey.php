@@ -17,6 +17,6 @@ class Survey extends Model
     {
         return SlugOptions::create()
         ->generateSlugsFrom('title')
-        ->saveSlugTo('slug');
+        ->saveSlugsTo('slug');
     }
 }

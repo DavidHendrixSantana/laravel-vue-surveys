@@ -6,7 +6,7 @@ use App\Models\Survey;
 use App\Http\Requests\StoreSurveyRequest;
 use App\Http\Requests\UpdateSurveyRequest;
 use Illuminate\Http\Response;
-use App\Resource\SurveyResource;
+use App\Http\Resources\SurveyResource;
 
 class SurveyController extends Controller
 {
