@@ -14,7 +14,7 @@ class UpdateSurveyRequest extends FormRequest
     public function authorize()
     {
         $survey = $this->route('survey');
-        if($this->user()->id !== $survey->user_id){
+        if($this->user()->id != $survey->user_id){
             return false;
              
         }
